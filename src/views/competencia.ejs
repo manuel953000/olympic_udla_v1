@@ -1,0 +1,86 @@
+
+<%- include ('partials/header') -%>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                <h4 class="card-title ">Creación de competencias</h4>
+                <p class="card-category"> Ingresa los datos para crear las competencias que desee.</p>
+                </div>
+                <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="/add" method="post">
+                                            <div class="form-group">
+                                                <input type="text" name="name_competencia" placeholder="Nombre competencia" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea name="desc_competencia" id="" cols="30" rows="10" class="form-control" placeholder="Descripción"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-sm btn-block">
+                                                Agregar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                    </div>
+                    <div class="card-body">
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <table class="table table-hover table-responsive">
+                                    <thead class="text-primary">
+                                        <tr>
+                                            <th><strong> ID </strong></th>
+                                            <th><strong> Competencia </strong></th>
+                                            <th><strong> Descripción </strong></th>
+                                            <th><strong> Opciones </strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data) { %>
+                                            <% for (var i = 0; i < data.length; i++) { %>
+                                                <tr>
+                                                    <td><%= data[i].id_competencia %></td>
+                                                    <td><%= data[i].name_competencia %></td>
+                                                    <td><%= data[i].desc_competencia%></td>
+                                                    <td class="td-actions text-right">
+                                                        <!--a href="/delete/<%= data[i].id%>" class="btn btn-primary btn-link btn-sm" title="Eliminar pregunta"><i class="material-icons">closer</i></a-->
+                                                        <!--a href="/update/<%= data[i].id%>" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task"><i class="material-icons">edit</i></a-->                                                   
+                                                        
+                                                            <a href="/update/<%= data[i].id_competencia%>" class="btn btn-primary btn-link btn-sm"><i class="material-icons">edit</i></a>
+                                                            <a href="/delete/<%= data[i].id_competencia%>" class="btn btn-danger btn-link btn-sm"><i class="material-icons">closer</i></a>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            <% } %>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+    </div>    
+</div>
+
+
+   <%- include ('partials/footer') -%>
