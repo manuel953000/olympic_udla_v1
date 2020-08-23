@@ -2,8 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
+const flash = require('connect-flash');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session');
 const mysql = require('mysql');
 const myConnection = require('express-myconnection');
+const cookieParser = require('cookie-parser');
 const colors = require('colors');
 //const ngrok = require('ngrok');
 
@@ -16,6 +20,7 @@ const competenciaRoutes = require('./routes/competencia');
 const indexRoutes = require('./routes/index');
 const loginRoutes = require('./routes/login');
 const userRoutes = require('./routes/user');
+const cuestionarioRoutes = require('./routes/cuestionario');
 const { urlencoded } = require('body-parser');
 
 
@@ -28,8 +33,12 @@ server.set('views', path.join(__dirname, 'views'));
 //archivos static en la carpeta public
 server.use('/public',express.static(__dirname + "/public"));
 
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json());
+
 
 //Middlewares
+
 server.use(morgan('dev'));
 server.use(myConnection(mysql, {
     host: 'localhost',
@@ -41,6 +50,16 @@ server.use(myConnection(mysql, {
 //conversion de los datos que vienen desde el formulario
 server.use(express.urlencoded({extended: false}));
 
+server.use(cookieParser('secret'));
+server.use(session({cookie: {maxAge: null}}));
+
+// flash  mensajes middleware
+server.use((req, res, next)=>{
+    res.locals.message = req.session.message;
+    delete req.session.message;
+    next();
+});
+
 
 
 //Routes 
@@ -48,11 +67,8 @@ server.use('/', competenciaRoutes);
 server.use('/', indexRoutes);
 server.use('/', loginRoutes);
 server.use('/', userRoutes);
+server.use('/', cuestionarioRoutes);
 
-
-
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
 
 
 

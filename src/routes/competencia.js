@@ -8,7 +8,11 @@ router.post('/add', competenciaController.save);
 router.get('/delete/:id', competenciaController.delete);
 
 router.get('//:id', competenciaController.edit);
-router.post('/update/:id', competenciaController.update);
+router.post('/update/:id', competenciaController.edit);
+
+router.post('/alert', competenciaController.alerta);
+
+//router.post('/edit', competenciaController.edit);
 
 
 

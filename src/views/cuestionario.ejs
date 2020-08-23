@@ -1,0 +1,61 @@
+
+<%-include ('partials/header')-%>
+
+<form action="/check" method="post">
+    <div class="row">
+        <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Competencia</h4>
+                        <p class="card-category"> Responde el siguiente cuestionario</p>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <p>
+                                <h5>Tiempo restante: </h5>
+                                <h4  id='CuentaAtras'></h4>
+                            </p>
+                        </div>
+                        <h1 class="text-center primary"></h1>
+
+                                    <% for (var i = 0; i < data.length; i++) { %>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-6" style="box-shadow: 10px 10px 17px -2px rgba(0,0,0,0.41); margin-left: auto; margin-right: auto; border-radius: 10px;">
+                                                    <div class="">
+                                                        <h3 class="text-center primary font-weight-bold">
+                                                            <%= data[i].question %>
+                                                        </h3>
+                                                    </div>
+                                                    <hr>
+                                                    
+                                                    <% for (var j = 0; j < data_answers.length; j++) { %>
+                                                        <% if (data[i].ans_id == data_answers[j].ans_id) {%>
+                                                        <div class="">
+                                                            <p>       
+                                                                <label for="">
+                                                                    <input type="radio" name="quizcheck[<%= data_answers[j].ans_id %>]" value="<%= data_answers[j].aid %>" id="" style="width: 20px; height: 20px;"> 
+                                                                </label>                                                         
+                                                                <span style="font-family: 'Noto Sans KR', sans-serif;">&nbsp;&nbsp;<%= data_answers[j].answer %></span>
+                                                            </p>
+                                                        </div>
+                                                        <% } %> 
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    <% } %>     
+                                    
+                                <h4 class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        Enviar
+                                    </button>
+                                </h4>
+                    </div>
+                </div>
+        </div>  
+    </div>
+</form>
+
+<%-include ('partials/footer')-%>rgba(39, 176, 80, 0.4)

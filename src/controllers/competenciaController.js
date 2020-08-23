@@ -23,6 +23,12 @@ controller.save = function (req, res) {
    req.getConnection(function (err,  conn) {
        conn.query('INSERT INTO competencia set ?', [data], function (err, competencia) {
            console.log(competencia);
+           req.session.message = {
+            type: 'success',
+            intro: 'Exito',
+            message: 'Competencia registrada correctamente'
+        };
+            console.log(data);
            res.redirect('/competencia');
        });
    });
@@ -62,6 +68,16 @@ controller.delete = function (req, res) {
             res.redirect('/competencia');
         });
     });
+ };
+
+
+ controller.alerta = function (req, res) {
+    req.session.message = {
+        type: 'danger',
+        intro: 'Mensaje intro de prueba',
+        message: 'Campos vacios message message'
+    };
+    res.redirect('/competencia');
  };
 
 
